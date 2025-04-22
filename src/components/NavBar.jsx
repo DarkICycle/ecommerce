@@ -25,22 +25,6 @@ function Navbar() {
         </li>
         <li>
           <Link
-            to="/carrito"
-            className="relative after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-blue-500 after:left-0 after:-bottom-1 hover:after:w-full after:transition-all after:duration-300"
-          >
-            Carrito
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/perfil"
-            className="relative after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-blue-500 after:left-0 after:-bottom-1 hover:after:w-full after:transition-all after:duration-300"
-          >
-            Perfil
-          </Link>
-        </li>
-        <li>
-          <Link
             to="/login"
             className="relative after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-blue-500 after:left-0 after:-bottom-1 hover:after:w-full after:transition-all after:duration-300"
           >

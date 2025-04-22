@@ -43,14 +43,18 @@ function Home() {
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800">
       <Navbar />
-
-      <main className="px-6 sm:px-12 py-8">
+      <main className="p-6 max-w-7xl mx-auto ">
         <section className="text-center mb-10">
           <h2 className="text-4xl font-extrabold text-blue-600 mb-2">Bienvenido a MiEcommerce</h2>
           <p className="text-gray-600 text-lg">Explora nuestros productos y encuentra lo que necesitas al mejor precio.</p>
         </section>
-
+        <section className="mb-16">
+          <Off productosConDescuento={productosConDescuento} />
+        </section>
         {/* Barra de búsqueda */}
+        <section className="text-center mb-10">
+          <h2 className="text-4xl font-extrabold text-blue-600 mb-2">Navega por nuestro catalogo 🔎</h2>
+        </section>
         <div className="flex justify-center mb-12">
           <input
             type="text"
@@ -82,15 +86,9 @@ function Home() {
             <p className="text-center text-gray-500 mt-10">No se encontraron productos con ese nombre.</p>
           )}
         </section>
-
-        {/* Sección con descuento (Off.jsx) */}
-        <section className="mb-16">
-          <Off productosConDescuento={productosConDescuento} />
-        </section>
       </main>
-
-      <Footer />
       <BtnCartFlotante />
+      <Footer />
     </div>
   )
 }

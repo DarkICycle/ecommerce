@@ -1,6 +1,6 @@
 import React from 'react'
 import carritoIcono from '../assets/cart.png'
-import { useNavigate } from 'react-router-dom'  
+import { useNavigate } from 'react-router-dom'  // Asegúrate de tener react-router-dom instalado
 import { CartStore } from '../store/cartStore'
 
 const BtnCartFlotante = () => {

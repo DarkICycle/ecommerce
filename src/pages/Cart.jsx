@@ -12,13 +12,13 @@ const Cart = () => {
 
   return (
     <div className="p-6">
-          <Link
-      to="/"
-      className="inline-flex items-center text-gray-700 hover:text-gray-900 font-medium transition"
-    >
-      <img src={flecha} className="h-5 w-5 mr-1" alt="Flecha" />
-      Volver al Inicio
-    </Link>
+      <Link
+        to="/"
+        className="inline-flex items-center text-gray-700 hover:text-gray-900 font-medium transition"
+      >
+        <img src={flecha} className="h-5 w-5 mr-1" alt="Flecha" />
+        Volver al Inicio
+      </Link>
       <h1 className="text-3xl font-bold mb-6 text-center">Carrito de Compras 🛒</h1>
 
       {cart.length === 0 ? (

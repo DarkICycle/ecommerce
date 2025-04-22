@@ -3,10 +3,10 @@ import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore'
 import { db } from '../firebase'
 import Navbar from '../components/NavBar'
 import CardCrud from '../components/CardCrud'
-import Editar from '../components/editar'
+import Editar from '../components/Editar'
 import AgregarProducto from '../components/AgregarProducto' // asegúrate de tener este componente creado
 
-function Crud() {
+function Crud () {
     const [productos, setProductos] = useState([])
     const [busqueda, setBusqueda] = useState('')
     const [mostrarModal, setMostrarModal] = useState(false)
@@ -52,6 +52,7 @@ function Crud() {
 
     return (
         <div>
+            <Navbar />
             <main className="p-6">
                 <h2 className="text-3xl font-semibold mb-4">Panel de Administración</h2>
 
@@ -65,7 +66,7 @@ function Crud() {
 
                 {/* Botón para Agregar Producto */}
                 <button
-                    className="mb-6 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
+                    className="mb-6 ml-3 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
                     onClick={() => {
                         setProductoSeleccionado(null) // limpiar selección
                         setMostrarModal(true)

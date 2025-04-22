@@ -48,9 +48,9 @@ const AgregarProducto = ({ isOpen, onClose, onGuardar }) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-sm z-50">
-      <div className="bg-white p-6 rounded-2xl w-full max-w-md shadow-lg border border-gray-200">
+      <div className="bg-white p-6 rounded-2xl w-full max-w-md shadow-lg border border-gray-200 overflow-hidden">
         <h2 className="text-2xl font-semibold text-gray-800 mb-4">Agregar Producto</h2>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4 max-h-[80vh] overflow-y-auto">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Título</label>
             <input
@@ -94,7 +94,6 @@ const AgregarProducto = ({ isOpen, onClose, onGuardar }) => {
               <option value="Alimentos">Alimentos</option>
               <option value="Automotriz">Automotriz</option>
               <option value="Deportes">Deportes</option>
-
             </select>
           </div>
 

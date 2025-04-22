@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import ProductosStore from '../store/ProductosStore'
 import Card from '../components/Card' // Asegúrate de que la ruta sea correcta
 import BtnCartFlotante from '../components/btnCartFlotante'
+import Navbar from '../components/NavBar'
 
 const ProductosPage = () => {
   const { productos, cargarProductosDesdeFirebase, setCategoriaSeleccionada, obtenerProductosFiltrados } = ProductosStore()
@@ -28,9 +29,9 @@ const ProductosPage = () => {
   const productosFiltrados = obtenerProductosFiltrados()
 
   return (
-    <div className="p-4">
-      {/* Barra de categorías */}
-      <div className="flex justify-start gap-4 mb-6">
+    <div className="">
+      <Navbar className />
+      <div className="flex justify-start gap-4 mb-6 mt-5 ml-5">
         <button
           onClick={() => handleCategoriaClick('Todas')}
           className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
