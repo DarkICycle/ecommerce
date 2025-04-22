@@ -1,11 +1,11 @@
 import iconoVer from '../assets/ojo-abierto.png' // icono de carrito que tengas
 import { useState } from 'react'
-import { useCartStore } from '../store/cartStore'
+import { CartStore } from '../store/cartStore'
 import iconoCarrito from '../assets/cart.png'
 
-const Card = ({ title, image, description, price, priceOriginal, category, stock }) => {
+const Card = ({ title, image, description, price, priceOriginal, category,  }) => {
   const [mostrarModal, setMostrarModal] = useState(false)
-  const addToCart = useCartStore((state) => state.addToCart)
+  const addToCart = CartStore((state) => state.addToCart)
 
   const handleAddToCart = () => {
     addToCart({
@@ -13,7 +13,6 @@ const Card = ({ title, image, description, price, priceOriginal, category, stock
       image,
       price,
       category,
-      stock,
       id: Date.now() 
     })
   }
@@ -30,7 +29,6 @@ const Card = ({ title, image, description, price, priceOriginal, category, stock
           <h2 className="text-lg font-semibold text-[#333] mb-1 line-clamp-1">{title}</h2>
           <p className="text-sm text-[#7c7c7c] line-clamp-1 mb-1">{description}</p>
           <p className="text-xs text-gray-500 mb-1">Categoría: {category}</p>
-          <p className="text-xs text-gray-500 mb-2">Stock: {stock}</p>
           <div className="mt-auto flex justify-between items-center gap-2">
             <div>
               {priceOriginal && priceOriginal > price && (
@@ -70,7 +68,6 @@ const Card = ({ title, image, description, price, priceOriginal, category, stock
             <p className="text-sm text-[#555] mb-2"><strong>Descripción:</strong> {description}</p>
             <p className="text-sm text-[#555]"><strong>Precio:</strong> ${price}</p>
             <p className="text-sm text-[#555]"><strong>Categoría:</strong> {category}</p>
-            <p className="text-sm text-[#555]"><strong>Stock:</strong> {stock}</p>
           </div>
         </div>
       )}

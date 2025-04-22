@@ -1,11 +1,11 @@
-import { useCartStore } from '../store/cartStore'
+import { CartStore } from '../store/cartStore'
 import { Link } from 'react-router-dom'
 import flecha from '../assets/flecha.png'
 
 const Cart = () => {
-  const cart = useCartStore((state) => state.cart)
-  const increaseQuantity = useCartStore((state) => state.increaseQuantity)
-  const decreaseQuantity = useCartStore((state) => state.decreaseQuantity)
+  const cart = CartStore((state) => state.cart)
+  const increaseQuantity = CartStore((state) => state.increaseQuantity)
+  const decreaseQuantity = CartStore((state) => state.decreaseQuantity)
 
   const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0)
   const totalPrice = cart.reduce((acc, item) => acc + item.quantity * item.price, 0)
