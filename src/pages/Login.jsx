@@ -18,8 +18,8 @@ function Login() {
     try {
       await signInWithEmailAndPassword(auth, email, password)
       navigate('/')
-    } catch (err) {
-      setError('Correo o contraseña incorrectos')
+    } catch (e) {
+      setError('Correo o contraseña incorrectos' + e.message)
     } finally {
       setLoading(false)
     }

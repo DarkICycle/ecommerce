@@ -5,12 +5,15 @@ import Navbar from '../components/NavBar'
 import Card from '../components/Card'
 import Off from '../sections/Off'
 import Footer from '../sections/Footer'
+import BtnCartFlotante from '../components/btnCartFlotante'
+
 
 function Home() {
   const [productosSinDescuento, setProductosSinDescuento] = useState([])
   const [productosConDescuento, setProductosConDescuento] = useState([])
   const [busqueda, setBusqueda] = useState('')
 
+  
   useEffect(() => {
     const obtenerProductos = async () => {
       try {
@@ -87,6 +90,7 @@ function Home() {
       </main>
 
       <Footer />
+      <BtnCartFlotante />
     </div>
   )
 }

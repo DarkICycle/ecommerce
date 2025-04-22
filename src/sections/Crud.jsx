@@ -4,15 +4,13 @@ import { db } from '../firebase'
 import Navbar from '../components/NavBar'
 import CardCrud from '../components/CardCrud'
 import Editar from '../components/editar'
+import AgregarProducto from '../components/AgregarProducto' // asegúrate de tener este componente creado
 
 function Crud() {
     const [productos, setProductos] = useState([])
     const [busqueda, setBusqueda] = useState('')
-    const [isAdmin, setIsAdmin] = useState(true) // Simulación de verificación de administrador
     const [mostrarModal, setMostrarModal] = useState(false)
     const [productoSeleccionado, setProductoSeleccionado] = useState(null)
-
-
 
     useEffect(() => {
         const obtenerProductos = async () => {
@@ -35,6 +33,9 @@ function Crud() {
         setProductos(productos.map(p => p.id === productoEditado.id ? productoEditado : p))
     }
 
+    const agregarProducto = (nuevoProducto) => {
+        setProductos([...productos, nuevoProducto])
+    }
 
     const eliminarProducto = async (id) => {
         try {
@@ -49,18 +50,8 @@ function Crud() {
         producto.title.toLowerCase().includes(busqueda.toLowerCase())
     )
 
-    if (!isAdmin) {
-        return (
-            <div className="text-center p-8">
-                <h2 className="text-2xl font-semibold text-red-600">Acceso denegado</h2>
-                <p>No tienes permisos para acceder a esta sección.</p>
-            </div>
-        )
-    }
-
     return (
         <div>
-            <Navbar />
             <main className="p-6">
                 <h2 className="text-3xl font-semibold mb-4">Panel de Administración</h2>
 
@@ -72,10 +63,21 @@ function Crud() {
                     className="w-full md:w-1/3 p-2 border border-gray-300 rounded-lg mb-6"
                 />
 
+                {/* Botón para Agregar Producto */}
+                <button
+                    className="mb-6 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
+                    onClick={() => {
+                        setProductoSeleccionado(null) // limpiar selección
+                        setMostrarModal(true)
+                    }}
+                >
+                    + Agregar Producto
+                </button>
+
                 <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                     {productosFiltrados.map(producto => (
                         <div key={producto.id} className="relative">
-                            <div className=" p-4 relative">
+                            <div className="p-4 relative">
                                 <CardCrud
                                     title={producto.title}
                                     image={producto.image}
@@ -100,25 +102,32 @@ function Crud() {
                                         </button>
                                     </div>
                                 </CardCrud>
-
                             </div>
-
                         </div>
                     ))}
                 </div>
             </main>
-            <Editar
-                isOpen={mostrarModal}
-                onClose={() => setMostrarModal(false)}
-                producto={productoSeleccionado}
-                onGuardar={guardarEdicion}
-            />
 
+            {/* Modal de edición */}
+            {productoSeleccionado && (
+                <Editar
+                    isOpen={mostrarModal}
+                    onClose={() => setMostrarModal(false)}
+                    producto={productoSeleccionado}
+                    onGuardar={guardarEdicion}
+                />
+            )}
 
+            {/* Modal de agregar */}
+            {!productoSeleccionado && (
+                <AgregarProducto
+                    isOpen={mostrarModal}
+                    onClose={() => setMostrarModal(false)}
+                    onGuardar={agregarProducto}
+                />
+            )}
         </div>
-
     )
-
 }
 
 export default Crud

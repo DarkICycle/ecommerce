@@ -7,22 +7,29 @@ const Editar = ({ isOpen, onClose, producto, onGuardar }) => {
     title: '',
     description: '',
     price: '',
-    image: ''
+    image: '',
+    category: '',
+    off: 'No',
+    percentage: '0'
   })
 
   useEffect(() => {
     if (producto) {
       setFormData({
-        title: producto.title,
-        description: producto.description,
-        price: producto.price,
-        image: producto.image
+        title: producto.title || '',
+        description: producto.description || '',
+        price: producto.price || '',
+        image: producto.image || '',
+        category: producto.category || '',
+        off: producto.off ? 'Sí' : 'No',
+        percentage: producto.percentage?.toString() || '0'
       })
     }
   }, [producto])
 
   const handleChange = e => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
+    const { name, value } = e.target
+    setFormData({ ...formData, [name]: value })
   }
 
   const handleSubmit = async e => {
@@ -31,10 +38,19 @@ const Editar = ({ isOpen, onClose, producto, onGuardar }) => {
       const productoRef = doc(db, 'productos', producto.id)
       await updateDoc(productoRef, {
         ...formData,
-        price: parseFloat(formData.price)
+        off: formData.off === 'Sí',
+        price: parseFloat(formData.price),
+        percentage: parseInt(formData.percentage)
       })
 
-      onGuardar({ ...producto, ...formData })
+      onGuardar({
+        ...producto,
+        ...formData,
+        off: formData.off === 'Sí',
+        price: parseFloat(formData.price),
+        percentage: parseInt(formData.percentage)
+      })
+
       onClose()
     } catch (error) {
       console.error('Error al actualizar producto:', error)
@@ -56,7 +72,7 @@ const Editar = ({ isOpen, onClose, producto, onGuardar }) => {
               placeholder="Título"
               value={formData.title}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-lg p-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
+              className="w-full border border-gray-300 rounded-lg p-2 shadow-sm"
               required
             />
           </div>
@@ -69,7 +85,7 @@ const Editar = ({ isOpen, onClose, producto, onGuardar }) => {
               placeholder="Descripción"
               value={formData.description}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-lg p-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
+              className="w-full border border-gray-300 rounded-lg p-2 shadow-sm"
               required
             />
           </div>
@@ -82,7 +98,7 @@ const Editar = ({ isOpen, onClose, producto, onGuardar }) => {
               placeholder="Precio"
               value={formData.price}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-lg p-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
+              className="w-full border border-gray-300 rounded-lg p-2 shadow-sm"
               required
             />
           </div>
@@ -95,10 +111,63 @@ const Editar = ({ isOpen, onClose, producto, onGuardar }) => {
               placeholder="URL de la imagen"
               value={formData.image}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-lg p-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
+              className="w-full border border-gray-300 rounded-lg p-2 shadow-sm"
               required
             />
           </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Categoria</label>
+            <select
+              name="category"
+              value={formData.category}
+              onChange={handleChange}
+              className="w-full border border-gray-300 rounded-lg p-2 shadow-sm"
+            >
+              <option value="Hogar">Hogar</option>
+              <option value="Tecnologia">Tecnología</option>
+              <option value="Electrodomesticos">Electrodomésticos</option>
+              <option value="Belleza">Belleza</option>
+              <option value="Gimnasio">Gimnasio</option>
+              <option value="Juguetes">Juguetes</option>
+              <option value="Ropa">Ropa</option>
+              <option value="Alimentos">Alimentos</option>
+              <option value="Automotriz">Automotriz</option>
+              <option value="Deportes">Deportes</option>
+
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">¿Está en oferta?</label>
+            <select
+              name="off"
+              value={formData.off}
+              onChange={handleChange}
+              className="w-full border border-gray-300 rounded-lg p-2 shadow-sm"
+            >
+              <option value="No">No</option>
+              <option value="Sí">Sí</option>
+            </select>
+          </div>
+
+          {formData.off === 'Sí' && (
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Porcentaje de Descuento</label>
+              <select
+                name="percentage"
+                value={formData.percentage}
+                onChange={handleChange}
+                className="w-full border border-gray-300 rounded-lg p-2 shadow-sm"
+              >
+                <option value={0}>Sin descuento</option>
+                <option value={10}>10%</option>
+                <option value={20}>20%</option>
+                <option value={30}>30%</option>
+                <option value={40}>40%</option>
+                <option value={50}>50%</option>
+              </select>
+            </div>
+          )}
 
           <div className="flex justify-end gap-2 mt-2">
             <button
