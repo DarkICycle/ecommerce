@@ -84,7 +84,7 @@ const AgregarProducto = ({ isOpen, onClose, onGuardar }) => {
               onChange={handleChange}
               className="w-full border border-gray-300 rounded-lg p-2 shadow-sm"
             >
-              <option value="Hogar">Hogar</option>
+              
               <option value="Tecnologia">Tecnología</option>
               <option value="Electrodomesticos">Electrodomésticos</option>
               <option value="Belleza">Belleza</option>
@@ -94,6 +94,7 @@ const AgregarProducto = ({ isOpen, onClose, onGuardar }) => {
               <option value="Alimentos">Alimentos</option>
               <option value="Automotriz">Automotriz</option>
               <option value="Deportes">Deportes</option>
+              <option value="Cocina">Cocina</option>
             </select>
           </div>
 

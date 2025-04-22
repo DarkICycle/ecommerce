@@ -5,7 +5,7 @@ import Register from './pages/Register'
 import Crud from './sections/Crud'
 import Cart from './pages/cart'
 import Productos from './pages/Productos'
-
+import ProtectedRoute from './components/ProtectedRoute';  // Importamos el componente de protección
 
 function App() {
   return (
@@ -14,12 +14,15 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
-        <Route path="/Crud" element={<Crud />} />
+        
+        {/* Ruta protegida: solo admin puede acceder */}
+        <Route path="/Crud" element={<ProtectedRoute><Crud /></ProtectedRoute>} />
+        
         <Route path="/Cart" element={<Cart />} />
         <Route path="/Productos" element={<Productos />} />
       </Routes>
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;
