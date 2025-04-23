@@ -3,13 +3,16 @@ import { Link } from 'react-router-dom'
 import flecha from '../assets/flecha.png'
 
 const Cart = () => {
+
   const cart = CartStore((state) => state.cart)
   const increaseQuantity = CartStore((state) => state.increaseQuantity)
-  const decreaseQuantity = CartStore((state) => state.decreaseQuantity)
-
+  const decreaseQuantity = CartStore((state) => state.decreaseQuantity)  
   const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0)
   const totalPrice = cart.reduce((acc, item) => acc + item.quantity * item.price, 0)
-
+  const numero = "3183427723";
+  const mensaje = "Hola, quiero realizar un pago desde meEcomerce";
+  const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+  
   return (
     <div className="p-6">
       <Link
@@ -89,10 +92,19 @@ const Cart = () => {
               <p>Total de productos: <strong>{totalItems}</strong></p>
               <p>Total a pagar: <strong className="text-green-600">${totalPrice.toFixed(3)}</strong></p>
             </div>
-            <button className="mt-6 w-full bg-green-600 text-white py-2 rounded-xl hover:bg-green-700 transition" 
-            onClick={() => CartStore.getState().saveCartToFirestore()}>
-              Guardar Carrito
+            <button className="mt-6 w-full bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition"
+              onClick={() => CartStore.getState().saveCartToFirestore()}>
+              Guardar Compra
             </button>
+            <button
+              className="mt-6 w-full bg-green-600 text-white py-2 rounded-xl hover:bg-green-700 transition"
+              onClick={() => {
+                window.open(url, "_blank"); 
+              }}
+            >
+              Realizar pago
+            </button>
+
           </div>
         </div>
       )}

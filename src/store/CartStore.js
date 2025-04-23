@@ -69,3 +69,6 @@ export const CartStore = create((set, get) => ({
     }
   },
 }))
+
+
+export default CartStore

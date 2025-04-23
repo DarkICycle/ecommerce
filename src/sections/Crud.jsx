@@ -5,12 +5,14 @@ import Navbar from '../components/NavBar'
 import CardCrud from '../components/CardCrud'
 import Editar from '../components/Editar'
 import AgregarProducto from '../components/AgregarProducto' // asegúrate de tener este componente creado
+import { useNavigate } from 'react-router-dom'
 
 function Crud () {
     const [productos, setProductos] = useState([])
     const [busqueda, setBusqueda] = useState('')
     const [mostrarModal, setMostrarModal] = useState(false)
     const [productoSeleccionado, setProductoSeleccionado] = useState(null)
+    const navegate = useNavigate()
 
     useEffect(() => {
         const obtenerProductos = async () => {
@@ -73,6 +75,14 @@ function Crud () {
                     }}
                 >
                     + Agregar Producto
+                </button>
+                <button
+                    className="mb-6 ml-3 bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded"
+                    onClick={() => {
+                     navegate('/carritos')
+                    }}
+                >
+                    Carritos
                 </button>
 
                 <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
