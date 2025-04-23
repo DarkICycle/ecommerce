@@ -69,7 +69,7 @@ function Home() {
         <section className="mb-16">
           <h3 className="text-2xl font-bold mb-6 text-gray-800 border-b border-blue-100 pb-2">Productos disponibles</h3>
           {productosFiltrados.length > 0 ? (
-            <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full max-w-7xl mx-auto px-4">
               {productosFiltrados.map(producto => (
                 <Card
                   key={producto.id}
