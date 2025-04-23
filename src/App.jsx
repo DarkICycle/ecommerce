@@ -3,9 +3,10 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Crud from './sections/Crud'
-import Cart from './pages/cart'
+import Cart from './pages/Cart'
 import Productos from './pages/Productos'
-import ProtectedRoute from './components/ProtectedRoute';  // Importamos el componente de protección
+import ProtectedRoute from './components/ProtectedRoute';  
+
 
 function App() {
   return (

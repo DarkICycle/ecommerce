@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../firebase'
+import { CartStore } from '../store/CartStore'
 
 function Login() {
   const [email, setEmail] = useState('')
@@ -18,8 +19,10 @@ function Login() {
     try {
       await signInWithEmailAndPassword(auth, email, password)
       navigate('/')
+        CartStore.getState().loadCartFromFirestore()
+      
     } catch (e) {
-      setError('Correo o contraseña incorrectos' + e.message)
+      setError('Correo o contraseña incorrectos: ' + e.message)
     } finally {
       setLoading(false)
     }

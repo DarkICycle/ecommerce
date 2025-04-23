@@ -1,4 +1,4 @@
-import { CartStore } from '../store/cartStore'
+import { CartStore } from '../store/CartStore'
 import { Link } from 'react-router-dom'
 import flecha from '../assets/flecha.png'
 
@@ -89,8 +89,9 @@ const Cart = () => {
               <p>Total de productos: <strong>{totalItems}</strong></p>
               <p>Total a pagar: <strong className="text-green-600">${totalPrice.toFixed(3)}</strong></p>
             </div>
-            <button className="mt-6 w-full bg-green-600 text-white py-2 rounded-xl hover:bg-green-700 transition">
-              Proceder al Pago
+            <button className="mt-6 w-full bg-green-600 text-white py-2 rounded-xl hover:bg-green-700 transition" 
+            onClick={() => CartStore.getState().saveCartToFirestore()}>
+              Guardar Carrito
             </button>
           </div>
         </div>

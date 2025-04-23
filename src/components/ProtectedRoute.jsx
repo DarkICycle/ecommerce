@@ -27,7 +27,7 @@ const ProtectedRoute = ({ children }) => {
     return () => unsubscribe()
   }, [])
 
-  if (loading) return <div className="text-center mt-10">Cargando...</div>
+  if (loading) return <div className="text-center mt-10 animate-spin">Cargando...</div>
 
   if (!isAdmin) return <Navigate to="/" />
 
