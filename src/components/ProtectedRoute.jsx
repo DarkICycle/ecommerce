@@ -4,6 +4,9 @@ import { onAuthStateChanged } from 'firebase/auth'
 import { doc, getDoc } from 'firebase/firestore'
 import { auth, db } from '../firebase' 
 import spinner from '../assets/loading.png'
+import { auth, db } from '../firebase'
+
+
 
 const ProtectedRoute = ({ children }) => {
   const [isAdmin, setIsAdmin] = useState(null)
@@ -28,6 +31,7 @@ const ProtectedRoute = ({ children }) => {
     return () => unsubscribe()
   }, [])
 
+
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -40,6 +44,7 @@ const ProtectedRoute = ({ children }) => {
     )
   }
   
+
 
   if (!isAdmin) return <Navigate to="/" />
 

@@ -6,11 +6,11 @@ import Card from '../components/Card'
 import Off from '../sections/Off'
 import Footer from '../sections/Footer'
 import BtnCartFlotante from '../components/btnCartFlotante'
-import notificationImage from '../assets/notification.png'
+
 
 function Home() {
   const [productosSinDescuento, setProductosSinDescuento] = useState([])
-  const [productosConDescuento, setProductosConDescuento] = useState([])
+
 
   useEffect(() => {
     const obtenerProductos = async () => {
@@ -22,10 +22,10 @@ function Home() {
         }))
 
         const sinDescuento = lista.filter(producto => !producto.off)
-        const conDescuento = lista.filter(producto => producto.off)
+
 
         setProductosSinDescuento(sinDescuento)
-        setProductosConDescuento(conDescuento)
+
       } catch (error) {
         console.error('Error al obtener productos:', error)
       }
@@ -34,7 +34,7 @@ function Home() {
     obtenerProductos()
   }, [])
 
-  const ofertasDestacadas = productosConDescuento.slice(0, 8)
+
   const productosInicio = productosSinDescuento.slice(0, 8)
 
   return (
