@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import ProductosStore from '../store/ProductosStore'
 import Card from '../components/Card'
-import BtnCartFlotante from '../components/btnCartFlotante'
+import BtnCartFlotante from '../components/BtnCartFlotante'
 import Navbar from '../components/NavBar'
 import Footer from '../sections/Footer'
 
