@@ -1,4 +1,4 @@
-import { CartStore } from '../store/cartStore'
+import { CartStore } from '../store/CartStore'
 import { Link } from 'react-router-dom'
 import flecha from '../assets/flecha.png'
 import whatsapp from '../assets/whatsapp.png'
