@@ -2,17 +2,17 @@ import { create } from 'zustand'
 import { collection, getDocs } from 'firebase/firestore'
 import { db } from '../firebase'
 
-// Store de productos usando Zustand
-const ProductosStore = create((set, get) => ({
-  productos: [], // Estado inicial de productos
-  categoriaSeleccionada: 'Todas', // Categoría por defecto
 
-  // Función para establecer la categoría seleccionada
+const ProductosStore = create((set, get) => ({
+  productos: [], 
+  categoriaSeleccionada: 'Todas', 
+
+ 
   setCategoriaSeleccionada: (categoria) => {
     set({ categoriaSeleccionada: categoria })
   },
 
-  // Función para obtener los productos filtrados por categoría
+ 
   obtenerProductosFiltrados: () => {
     const { productos, categoriaSeleccionada } = get()
     return categoriaSeleccionada === 'Todas'
@@ -20,12 +20,12 @@ const ProductosStore = create((set, get) => ({
       : productos.filter((producto) => producto.category === categoriaSeleccionada)
   },
 
-  // Función para establecer los productos en el estado
+ 
   setProductos: (productos) => {
     set({ productos })
   },
 
-  // Función para cargar productos desde Firebase
+  
   cargarProductosDesdeFirebase: async () => {
     try {
       const querySnapshot = await getDocs(collection(db, 'productos'))
@@ -33,7 +33,7 @@ const ProductosStore = create((set, get) => ({
         id: doc.id,
         ...doc.data(),
       }))
-      set({ productos: lista }) // Actualiza el estado con los productos obtenidos desde Firebase
+      set({ productos: lista }) 
     } catch (error) {
       console.error('Error al obtener productos:', error)
     }
