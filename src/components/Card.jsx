@@ -1,7 +1,7 @@
 import iconoVer from '../assets/ojo-abierto.png';
 import iconoCarrito from '../assets/cart.png';
 import { useState } from 'react';
-import { CartStore } from '../store/cartStore';
+import { CartStore } from '../store/CartStore';
 
 const Card = ({ title, image, description, price, priceOriginal, category }) => {
   const [mostrarModal, setMostrarModal] = useState(false);
