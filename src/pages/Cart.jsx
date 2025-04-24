@@ -1,4 +1,5 @@
 import { CartStore } from '../store/CartStore'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import flecha from '../assets/flecha.png'
 import whatsapp from '../assets/whatsapp.png'
@@ -7,13 +8,14 @@ const Cart = () => {
 
   const cart = CartStore((state) => state.cart)
   const increaseQuantity = CartStore((state) => state.increaseQuantity)
-  const decreaseQuantity = CartStore((state) => state.decreaseQuantity)  
+  const decreaseQuantity = CartStore((state) => state.decreaseQuantity)
   const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0)
   const totalPrice = cart.reduce((acc, item) => acc + item.quantity * item.price, 0)
   const numero = "3183427723";
   const mensaje = "Hola, quiero realizar un pago desde meEcomerce";
   const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
-  
+  const [showModal, setShowModal] = useState(false)
+
   return (
     <div className="p-6">
       <Link
@@ -93,14 +95,35 @@ const Cart = () => {
               <p>Total de productos: <strong>{totalItems}</strong></p>
               <p>Total a pagar: <strong className="text-green-600">${totalPrice.toFixed(3)}</strong></p>
             </div>
-            <button className="mt-6 w-full bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition"
-              onClick={() => CartStore.getState().saveCartToFirestore()}>
+            <button
+              className="mt-6 w-full bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition"
+              onClick={() => {
+                CartStore.getState().saveCartToFirestore()
+                setShowModal(true)
+              }}
+            >
               Guardar Compra
             </button>
+
+            {showModal && (
+              <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur bg-opacity-50">
+                <div className="bg-white p-6 rounded-xl shadow-xl text-center max-w-sm w-full">
+                  <h2 className="text-xl font-semibold mb-2">¡Guardado exitoso!</h2>
+                  <p className="text-gray-700 mb-4">Tu carrito ha sido guardado correctamente.</p>
+                  <button
+                    onClick={() => setShowModal(false)}
+                    className="mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+                  >
+                    Cerrar
+                  </button>
+                </div>
+              </div>
+            )}
+
             <button
               className="mt-6 w-full bg-green-600 text-white py-2 rounded-xl hover:bg-green-700 transition flex items-center justify-center gap-2"
               onClick={() => {
-                window.open(url, "_blank"); 
+                window.open(url, "_blank");
               }}
             >
               <img src={whatsapp} alt="WhatsApp" className="h-5 w-5" />
