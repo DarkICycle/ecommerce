@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { doc, setDoc, getDoc } from 'firebase/firestore'
-import { auth, db } from '../firebase' // Asegúrate que estos estén correctamente importados
+import { auth, db } from '../firebase' 
 
 export const CartStore = create((set, get) => ({
   cart: [],

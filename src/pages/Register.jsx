@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { auth } from '../firebase';  // Importa tu configuración de Firebase
+import { auth } from '../firebase';  
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 function Register() {
@@ -9,7 +9,7 @@ function Register() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();  // Para redirigir al login después del registro
+  const navigate = useNavigate();  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,9 +26,9 @@ function Register() {
     try {
       // Crear el usuario en Firebase
       await createUserWithEmailAndPassword(auth, email, password);
-      navigate('/login');  // Redirigir a la página de login después de registrarse
+      navigate('/login');  
     } catch (err) {
-      setError(err.message);  // Mostrar el error si falla
+      setError(err.message);  
     } finally {
       setLoading(false);
     }

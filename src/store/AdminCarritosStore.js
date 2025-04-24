@@ -5,7 +5,7 @@ import { auth, db } from '../firebase'
 export const AdminCarritosStore = create((set) => ({
   userCarts: [],
   isAdmin: false,
-  isLoading: true, // Agregado para manejar estado de carga
+  isLoading: true, 
 
   fetchCarts: async () => {
     set({ isLoading: true })

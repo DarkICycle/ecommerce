@@ -38,14 +38,12 @@ const ProductosPage = () => {
   )
 
   return (
-    <div className="min-h-screen bg-[#f2f1ef]">
+    <div className="min-h-screen bg-gray-50 text-gray-800 px-2 sm:px-6">
       <Navbar />
+      <main className="p-4 sm:p-6 max-w-7xl mx-auto bg-white shadow-lg rounded-xl mt-6">
+        <div className="p-4 sm:p-6 rounded-2xl border border-gray-200">
 
-      <div className="max-w-7xl mx-auto px-4 py-6">
-        {/* CONTENEDOR DE TODO */}
-        <div className="bg-[#fdfcfa] p-6 rounded-2xl shadow-md border border-gray-200">
-
-          {/* BARRA DE CATEGORÍAS */}
+          {/* Categorías y búsqueda */}
           <div className="flex justify-between flex-wrap items-center gap-4 mb-6">
             {/* Categorías escritorio */}
             <div className="hidden sm:flex gap-3 flex-wrap">
@@ -78,7 +76,6 @@ const ProductosPage = () => {
               >
                 {categoriaSeleccionada}
               </button>
-
               {menuCategoriasAbierto && (
                 <div className="absolute left-4 right-4 bg-white shadow-md rounded-md mt-2 py-2 z-20">
                   <button
@@ -110,8 +107,8 @@ const ProductosPage = () => {
             />
           </div>
 
-          {/* TARJETAS DE PRODUCTOS */}
-          <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {/* Tarjetas de productos */}
+          <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-center">
             {productosFiltrados.length > 0 ? (
               productosFiltrados.map((producto) => (
                 <div key={producto.id} className="relative">
@@ -136,8 +133,7 @@ const ProductosPage = () => {
             )}
           </div>
         </div>
-      </div>
-
+      </main>
       <BtnCartFlotante />
       <Footer />
     </div>

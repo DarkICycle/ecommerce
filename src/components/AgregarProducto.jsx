@@ -13,6 +13,8 @@ const AgregarProducto = ({ isOpen, onClose, onGuardar }) => {
     percentage: 0,
   })
 
+  const [loading, setLoading] = useState(false)
+
   const handleChange = e => {
     const { name, value, type, checked } = e.target
     const val = type === 'checkbox' ? checked : value
@@ -21,6 +23,7 @@ const AgregarProducto = ({ isOpen, onClose, onGuardar }) => {
 
   const handleSubmit = async e => {
     e.preventDefault()
+    setLoading(true)
     try {
       const newProduct = {
         ...formData,
@@ -36,11 +39,14 @@ const AgregarProducto = ({ isOpen, onClose, onGuardar }) => {
         description: '',
         price: '',
         image: '',
+        category: '',
         off: false,
         percentage: 0,
       })
     } catch (error) {
       console.error('Error al agregar producto:', error)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -76,8 +82,9 @@ const AgregarProducto = ({ isOpen, onClose, onGuardar }) => {
               className="w-full border border-gray-300 rounded-lg p-2"
             />
           </div>
+
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Categoria</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Categoría</label>
             <select
               name="category"
               value={formData.category}
@@ -160,15 +167,21 @@ const AgregarProducto = ({ isOpen, onClose, onGuardar }) => {
             <button
               type="button"
               onClick={onClose}
+              disabled={loading}
               className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition"
             >
               Cancelar
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
+              disabled={loading}
+              className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition flex items-center justify-center min-w-[100px]"
             >
-              Agregar
+              {loading ? (
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              ) : (
+                'Agregar'
+              )}
             </button>
           </div>
         </form>

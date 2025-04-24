@@ -1,6 +1,7 @@
-import { CartStore } from '../store/CartStore'
+import { CartStore } from '../store/cartStore'
 import { Link } from 'react-router-dom'
 import flecha from '../assets/flecha.png'
+import whatsapp from '../assets/whatsapp.png'
 
 const Cart = () => {
 
@@ -97,14 +98,14 @@ const Cart = () => {
               Guardar Compra
             </button>
             <button
-              className="mt-6 w-full bg-green-600 text-white py-2 rounded-xl hover:bg-green-700 transition"
+              className="mt-6 w-full bg-green-600 text-white py-2 rounded-xl hover:bg-green-700 transition flex items-center justify-center gap-2"
               onClick={() => {
                 window.open(url, "_blank"); 
               }}
             >
+              <img src={whatsapp} alt="WhatsApp" className="h-5 w-5" />
               Realizar pago
             </button>
-
           </div>
         </div>
       )}

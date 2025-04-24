@@ -2,7 +2,8 @@ import { Navigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { onAuthStateChanged } from 'firebase/auth'
 import { doc, getDoc } from 'firebase/firestore'
-import { auth, db } from '../firebase' // Asegúrate de importar correctamente
+import { auth, db } from '../firebase' 
+import spinner from '../assets/loading.png'
 
 const ProtectedRoute = ({ children }) => {
   const [isAdmin, setIsAdmin] = useState(null)
@@ -27,7 +28,18 @@ const ProtectedRoute = ({ children }) => {
     return () => unsubscribe()
   }, [])
 
-  if (loading) return <div className="text-center mt-10 animate-spin">Cargando...</div>
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <img
+          src={spinner}
+          alt="Cargando..."
+          className="w-16 h-16 animate-spin"
+        />
+      </div>
+    )
+  }
+  
 
   if (!isAdmin) return <Navigate to="/" />
 
