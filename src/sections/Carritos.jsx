@@ -3,6 +3,7 @@ import { AdminCarritosStore } from '../store/AdminCarritosStore'
 import Navbar from '../components/NavBar'
 import { doc, updateDoc, deleteDoc } from 'firebase/firestore'
 import { db } from '../firebase'
+import  CartStore  from '../store/CartStore'
 
 function Carritos() {
   const { userCarts, fetchCarts } = AdminCarritosStore()
@@ -11,6 +12,7 @@ function Carritos() {
 
   useEffect(() => {
     fetchCarts()
+
   }, [])
 
   const handleUpdate = async () => {
@@ -19,6 +21,7 @@ function Carritos() {
     await updateDoc(cartRef, { cart: selectedCart.cart })
     setSelectedCart(null)
     fetchCarts()
+    CartStore.getState().loadCartFromFirestore()
     setLoading(false) 
   }
 
@@ -137,5 +140,6 @@ function Carritos() {
     </>
   )
 }
+
 
 export default Carritos
