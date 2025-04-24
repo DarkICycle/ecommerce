@@ -5,7 +5,7 @@ import Navbar from '../components/NavBar'
 import Card from '../components/Card'
 import Off from '../sections/Off'
 import Footer from '../sections/Footer'
-import BtnCartFlotante from '../components/btnCartFlotante'
+import BtnCartFlotante from '../components/BtnCartFlotante'
 
 function Home() {
   const [productosSinDescuento, setProductosSinDescuento] = useState([])
