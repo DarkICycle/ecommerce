@@ -7,7 +7,6 @@ import Off from '../sections/Off'
 import Footer from '../sections/Footer'
 import BtnCartFlotante from '../components/btnCartFlotante'
 
-
 function Home() {
   const [productosSinDescuento, setProductosSinDescuento] = useState([])
 
