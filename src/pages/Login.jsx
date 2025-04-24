@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../firebase'
-import  CartStore  from '../store/CartStore'
+import  CartStore  from '../store/cartStore'
 
 function Login() {
   const [email, setEmail] = useState('')

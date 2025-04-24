@@ -6,14 +6,12 @@ import Card from '../components/Card'
 import Off from '../sections/Off'
 import Footer from '../sections/Footer'
 import BtnCartFlotante from '../components/btnCartFlotante'
-
+import notificationImage from '../assets/notification.png'
 
 function Home() {
   const [productosSinDescuento, setProductosSinDescuento] = useState([])
   const [productosConDescuento, setProductosConDescuento] = useState([])
-  const [busqueda, setBusqueda] = useState('')
 
-  
   useEffect(() => {
     const obtenerProductos = async () => {
       try {
@@ -36,55 +34,37 @@ function Home() {
     obtenerProductos()
   }, [])
 
-  const productosFiltrados = productosSinDescuento.filter(producto =>
-    producto.title.toLowerCase().includes(busqueda.toLowerCase())
-  )
+  const ofertasDestacadas = productosConDescuento.slice(0, 8)
+  const productosInicio = productosSinDescuento.slice(0, 8)
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-800">
+    <div className="min-h-screen bg-gray-50 text-gray-800 px-2 sm:px-6">
       <Navbar />
-      <main className="p-6 max-w-7xl mx-auto ">
+      <main className="p-4 sm:p-6 max-w-7xl mx-auto bg-white shadow-lg rounded-xl mt-6">
         <section className="text-center mb-10">
           <h2 className="text-4xl font-extrabold text-blue-600 mb-2">Bienvenido a MiEcommerce</h2>
           <p className="text-gray-600 text-lg">Explora nuestros productos y encuentra lo que necesitas al mejor precio.</p>
         </section>
-        <section className="mb-16">
-          <Off productosConDescuento={productosConDescuento} />
-        </section>
-        {/* Barra de búsqueda */}
-        <section className="text-center mb-10">
-          <h2 className="text-4xl font-extrabold text-blue-600 mb-2">Navega por nuestro catalogo 🔎</h2>
-        </section>
-        <div className="flex justify-center mb-12">
-          <input
-            type="text"
-            placeholder="Buscar productos..."
-            value={busqueda}
-            onChange={e => setBusqueda(e.target.value)}
-            className="w-full sm:w-1/2 p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all"
-          />
-        </div>
 
-        {/* Sección sin descuento */}
+        {/* Ofertas destacadas */}
+        <Off />
+
+        {/* Productos de muestra */}
         <section className="mb-16">
-          <h3 className="text-2xl font-bold mb-6 text-gray-800 border-b border-blue-100 pb-2">Productos disponibles</h3>
-          {productosFiltrados.length > 0 ? (
-            <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full max-w-7xl mx-auto px-4">
-              {productosFiltrados.map(producto => (
-                <Card
-                  key={producto.id}
-                  title={producto.title}
-                  image={producto.image}
-                  price={producto.price}
-                  description={producto.description}
-                  stock={producto.stock}
-                  category={producto.category}
-                />
-              ))}
-            </div>
-          ) : (
-            <p className="text-center text-gray-500 mt-10">No se encontraron productos con ese nombre.</p>
-          )}
+          <h3 className="text-2xl font-bold mb-6 text-gray-800 border-b border-blue-100 pb-2">Productos destacados del catálogo</h3>
+          <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {productosInicio.map(producto => (
+              <Card
+                key={producto.id}
+                title={producto.title}
+                image={producto.image}
+                price={producto.price}
+                description={producto.description}
+                stock={producto.stock}
+                category={producto.category}
+              />
+            ))}
+          </div>
         </section>
       </main>
       <BtnCartFlotante />

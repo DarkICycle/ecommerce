@@ -1,76 +1,59 @@
 import { useEffect, useState } from 'react'
 import ProductosStore from '../store/ProductosStore'
-import Card from '../components/Card' // Asegúrate de que la ruta sea correcta
+import Card from '../components/Card'
 import BtnCartFlotante from '../components/btnCartFlotante'
 import Navbar from '../components/NavBar'
+import Footer from '../sections/Footer'
 
 const ProductosPage = () => {
-  const { productos, cargarProductosDesdeFirebase, setCategoriaSeleccionada, obtenerProductosFiltrados } = ProductosStore()
-  
+  const {
+    productos,
+    cargarProductosDesdeFirebase,
+    setCategoriaSeleccionada,
+    obtenerProductosFiltrados
+  } = ProductosStore()
+
   const [categorias, setCategorias] = useState([])
   const [menuCategoriasAbierto, setMenuCategoriasAbierto] = useState(false)
   const [categoriaSeleccionada, setCategoriaSeleccionadaState] = useState('Todas')
+  const [busqueda, setBusqueda] = useState('')
 
-  // Cargar productos cuando el componente se monta
   useEffect(() => {
     cargarProductosDesdeFirebase()
   }, [cargarProductosDesdeFirebase])
 
-  // Obtener las categorías únicas de los productos
   useEffect(() => {
     const categoriasUnicas = [...new Set(productos.map((producto) => producto.category))]
     setCategorias(categoriasUnicas)
   }, [productos])
 
-  // Manejar el clic en las categorías
   const handleCategoriaClick = (categoria) => {
     setCategoriaSeleccionadaState(categoria)
     setCategoriaSeleccionada(categoria)
     setMenuCategoriasAbierto(false)
   }
 
-  // Obtener los productos filtrados según la categoría seleccionada
-  const productosFiltrados = obtenerProductosFiltrados()
+  const productosFiltrados = obtenerProductosFiltrados().filter((producto) =>
+    producto.title.toLowerCase().includes(busqueda.toLowerCase())
+  )
 
   return (
-    <div className="">
+    <div className="min-h-screen bg-[#f2f1ef]">
       <Navbar />
-      
-      {/* Barra de Categorías (Con botón hamburguesa en móvil) */}
-      <div className="flex justify-start gap-4 mb-6 mt-5 ml-5">
-        {/* Vista en escritorio */}
-        <div className="hidden sm:flex gap-4">
-          <button
-            onClick={() => handleCategoriaClick('Todas')}
-            className={`px-4 py-2 rounded-md transition ${categoriaSeleccionada === 'Todas' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
-          >
-            Todas
-          </button>
-          {categorias.map((categoria) => (
-            <button
-              key={categoria}
-              onClick={() => handleCategoriaClick(categoria)}
-              className={`px-4 py-2 rounded-md transition ${categoriaSeleccionada === categoria ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
-            >
-              {categoria}
-            </button>
-          ))}
-        </div>
 
-        {/* Vista en móvil: botón hamburguesa */}
-        <div className="sm:hidden">
-          <button
-            onClick={() => setMenuCategoriasAbierto(!menuCategoriasAbierto)}
-            className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition"
-          >
-            {categoriaSeleccionada}
-          </button>
+      <div className="max-w-7xl mx-auto px-4 py-6">
+        {/* CONTENEDOR DE TODO */}
+        <div className="bg-[#fdfcfa] p-6 rounded-2xl shadow-md border border-gray-200">
 
-          {menuCategoriasAbierto && (
-            <div className="absolute left-4 right-4 bg-white border border-gray-200 shadow-lg rounded-lg mt-2 py-2 z-20 flex flex-col items-center">
+          {/* BARRA DE CATEGORÍAS */}
+          <div className="flex justify-between flex-wrap items-center gap-4 mb-6">
+            {/* Categorías escritorio */}
+            <div className="hidden sm:flex gap-3 flex-wrap">
               <button
                 onClick={() => handleCategoriaClick('Todas')}
-                className={`block w-full px-4 py-2 text-left transition ${categoriaSeleccionada === 'Todas' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+                className={`px-4 py-2 rounded-md transition ${categoriaSeleccionada === 'Todas'
+                  ? 'bg-blue-500 text-white'
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
               >
                 Todas
               </button>
@@ -78,34 +61,85 @@ const ProductosPage = () => {
                 <button
                   key={categoria}
                   onClick={() => handleCategoriaClick(categoria)}
-                  className={`block w-full px-4 py-2 text-left transition ${categoriaSeleccionada === categoria ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+                  className={`px-4 py-2 rounded-md transition ${categoriaSeleccionada === categoria
+                    ? 'bg-blue-500 text-white'
+                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
                 >
                   {categoria}
                 </button>
               ))}
             </div>
-          )}
+
+            {/* Categorías móvil */}
+            <div className="sm:hidden w-full">
+              <button
+                onClick={() => setMenuCategoriasAbierto(!menuCategoriasAbierto)}
+                className="w-full px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition"
+              >
+                {categoriaSeleccionada}
+              </button>
+
+              {menuCategoriasAbierto && (
+                <div className="absolute left-4 right-4 bg-white shadow-md rounded-md mt-2 py-2 z-20">
+                  <button
+                    onClick={() => handleCategoriaClick('Todas')}
+                    className={`block w-full px-4 py-2 text-left transition ${categoriaSeleccionada === 'Todas' ? 'bg-blue-500 text-white' : 'hover:bg-gray-200'}`}
+                  >
+                    Todas
+                  </button>
+                  {categorias.map((categoria) => (
+                    <button
+                      key={categoria}
+                      onClick={() => handleCategoriaClick(categoria)}
+                      className={`block w-full px-4 py-2 text-left transition ${categoriaSeleccionada === categoria ? 'bg-blue-500 text-white' : 'hover:bg-gray-200'}`}
+                    >
+                      {categoria}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Barra de búsqueda */}
+            <input
+              type="text"
+              placeholder="Buscar producto..."
+              value={busqueda}
+              onChange={(e) => setBusqueda(e.target.value)}
+              className="flex-1 min-w-[200px] px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          {/* TARJETAS DE PRODUCTOS */}
+          <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {productosFiltrados.length > 0 ? (
+              productosFiltrados.map((producto) => (
+                <div key={producto.id} className="relative">
+                  {producto.off && (
+                    <span className="absolute top-2 left-2 bg-yellow-300 text-blue-800 text-xs font-semibold px-2 py-1 rounded-full z-10 shadow-md">
+                      En oferta
+                    </span>
+                  )}
+                  <Card
+                    title={producto.title}
+                    image={producto.image}
+                    description={producto.description}
+                    stock={producto.stock}
+                    category={producto.category}
+                    price={(producto.price - (producto.price * (producto.percentage / 100))).toFixed(2)}
+                    priceOriginal={producto.price}
+                  />
+                </div>
+              ))
+            ) : (
+              <p className="text-gray-500 col-span-full text-center">No se encontraron productos.</p>
+            )}
+          </div>
         </div>
       </div>
 
-      {/* Tarjetas de productos */}
-      <div className="w-full max-w-7xl mx-auto px-4">
-        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full max-w-7xl mx-auto px-4">
-          {productosFiltrados.map((producto) => (
-            <Card
-              key={producto.id}
-              title={producto.title}
-              image={producto.image}
-              description={producto.description}
-              stock={producto.stock}
-              category={producto.category}
-              price={(producto.price - (producto.price * (producto.percentage / 100))).toFixed(2)}
-              priceOriginal={producto.price}
-            />
-          ))}
-        </div>
-      </div>
       <BtnCartFlotante />
+      <Footer />
     </div>
   )
 }

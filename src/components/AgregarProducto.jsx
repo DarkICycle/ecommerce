@@ -82,9 +82,10 @@ const AgregarProducto = ({ isOpen, onClose, onGuardar }) => {
               name="category"
               value={formData.category}
               onChange={handleChange}
+              required
               className="w-full border border-gray-300 rounded-lg p-2 shadow-sm"
             >
-              
+              <option value="">Selecciona una categoría</option>
               <option value="Tecnologia">Tecnología</option>
               <option value="Electrodomesticos">Electrodomésticos</option>
               <option value="Belleza">Belleza</option>

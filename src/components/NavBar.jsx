@@ -3,6 +3,8 @@ import { auth, db } from '../firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
+import exitIcon from '../assets/exit.png';
+
 
 function Navbar() {
   const [user, setUser] = useState(null);
@@ -74,9 +76,13 @@ function Navbar() {
           <li>
             <button
               onClick={handleLogout}
-              className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition"
+              className="bg-red-500 px-2 py-1 rounded hover:bg-red-600 transition"
             >
-              Cerrar sesión
+              <img
+                src={exitIcon}
+                alt="Cerrar sesión"
+                className="w-6 h-6 object-contain"
+              />
             </button>
           </li>
         ) : (
