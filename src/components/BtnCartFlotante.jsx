@@ -1,7 +1,7 @@
 import React from 'react'
 import carritoIcono from '../assets/cart.png'
 import { useNavigate } from 'react-router-dom'  
-import { CartStore } from '../store/cartStore'
+import { CartStore } from '../store/CartStore'
 
 const BtnCartFlotante = () => {
   const cart = CartStore((state) => state.cart)
