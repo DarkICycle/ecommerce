@@ -4,7 +4,7 @@ import { onAuthStateChanged } from 'firebase/auth'
 import { doc, getDoc } from 'firebase/firestore'
 import { auth, db } from '../firebase' 
 import spinner from '../assets/loading.png'
-import { auth, db } from '../firebase'
+
 
 
 
